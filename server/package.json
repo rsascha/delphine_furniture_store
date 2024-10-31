@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "start": "node src/app.js",
-    "dev": "node --watch-path=src src/app.js"
+    "dev": "node --watch-path=src src/app.js",
+    "db-reset": "node src/util/init-db.js"
   },
   "author": "",
   "license": "ISC",
