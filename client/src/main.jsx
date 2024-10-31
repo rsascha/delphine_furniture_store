@@ -3,6 +3,36 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { Auth0Provider } from "@auth0/auth0-react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./pages/Home.jsx";
+import Products from "./pages/Products.jsx";
+import Profile from "./pages/Profile.jsx";
+import Cart from "./pages/Cart.jsx";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "products",
+        element: <Products />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
+      },
+    ],
+  },
+]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -13,7 +43,7 @@ createRoot(document.getElementById("root")).render(
         redirect_uri: window.location.origin,
       }}
     >
-      <App />
+      <RouterProvider router={router} />
     </Auth0Provider>
   </StrictMode>
 );
