@@ -15,8 +15,9 @@ app.use(cors());
 app.use(json());
 app.use(jwtCheck);
 
-app.get("/", addUserInfo, addUserId, async (req, res) => {
-  console.debug("request was executed by:", req.userInfo);
+app.get("/", addUserId, addUserInfo, async (req, res) => {
+  const { userId, userInfo } = req;
+  console.debug({ userId, userInfo });
   await db.connect();
   const products = await Product.find().populate("categoryId");
   res.json(products);

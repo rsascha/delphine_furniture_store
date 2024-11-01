@@ -12,6 +12,8 @@ export default function Products() {
       },
     });
     console.debug(response);
+    const data = await response.json();
+    console.debug(data);
   }
 
   return <button onClick={handleButtonClick}>test fetch request</button>;
