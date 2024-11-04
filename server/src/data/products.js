@@ -12,6 +12,7 @@ export const products = [
     color: "Black",
     available: 20,
     description: "A stylish coffee table with a glass top and metal frame.",
+    date: "",
     __v: 0,
   },
   {
