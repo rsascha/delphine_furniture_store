@@ -23,7 +23,7 @@ app.get("/", addUserId, addUserInfo, async (req, res) => {
   res.json({successfull: true});
 });
 
-app.use("/", productRoute);
+app.use("/products", productRoute);
 app.use("/", categoryRoutes);
 
 app.listen(PORT, () => {
