@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 function ProductDetails() {
-  const { id } = useParams();
+  const { productId} = useParams();
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    fetch(`/products/${id}`)
+    fetch(`/products/${productId}`)
       .then((res) => res.json())
       .then((data) => setProduct(data))
       .catch(console.error);
-  }, [id]);
+  }, [productId]);
 
   if (!product) {
     return <div>Loading...</div>;
