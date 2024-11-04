@@ -1,10 +1,11 @@
 import cors from "cors";
 import express, { json } from "express";
+import productRoute from "./routes/products.js";
+import categoryRoutes from "./routes/categories.js";
 import { auth } from "express-oauth2-jwt-bearer";
 import { config } from "./config.js";
 import { addUserInfo, addUserId } from "./middlewares/index.js";
 import Product from "./models/Product.js";
-import productRoute from "./routes/products.js";
 import { db } from "./util/db-connect.js";
 
 const PORT = process.env.PORT || 3000;
@@ -24,6 +25,7 @@ app.get("/", addUserId, addUserInfo, async (req, res) => {
 });
 
 app.use("/", productRoute);
+app.use("/", categoryRoutes);
 
 app.listen(PORT, () => {
   console.log("api running on port " + PORT);
