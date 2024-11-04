@@ -9,6 +9,7 @@ import Cart from "./pages/Cart.jsx";
 import Home from "./pages/Home.jsx";
 import Products from "./pages/Products.jsx";
 import Profile from "./pages/Profile.jsx";
+import ProductDetails from "./pages/ProductDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,14 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: <Products />,
+        children: [
+          {
+            path: ":productId",
+            element: <ProductDetails />,
+          },
+        ],
       },
+
       {
         path: "profile",
         element: <Profile />,

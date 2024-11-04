@@ -19,8 +19,7 @@ app.use(jwtCheck);
 app.get("/", addUserId, addUserInfo, async (req, res) => {
   const { userId, userInfo } = req;
   console.debug({ userId, userInfo });
-  
-  res.json({successfull: true});
+  res.json({ successfull: true });
 });
 
 app.use("/products", productRoute);

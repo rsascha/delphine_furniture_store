@@ -5,4 +5,5 @@ const router = Router();
 
 router.get("/", getAllProducts);
 router.get("/:productId", productDetails);
+
 export default router;
