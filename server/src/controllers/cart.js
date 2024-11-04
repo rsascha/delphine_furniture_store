@@ -1,7 +1,6 @@
 import Cart from "../models/Cart.js";
 import { db } from "../util/db-connect.js";
 
-// Alle Produkte abrufen
 /**
  * @api POST /cart/add
  *{
@@ -19,14 +18,14 @@ export const cart = async (req, res) => {
       return res.json({ message: "Missing required fields" });
     }
     const newProduct = new Cart({
-      _id,
+      productId: _id,
       available,
       date: new Date(date),
     });
 
-    await newProduct.save();
-
-    resjson({ message: "Product added to cart" });
+    cart.products.push(newProduct);
+    await cart.save();
+    res.json({ message: "Product added to cart" });
   } catch (error) {
     res.json({ message: "Internal server error" });
   }
