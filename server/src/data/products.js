@@ -12,7 +12,6 @@ export const products = [
     color: "Black",
     available: 20,
     description: "A stylish coffee table with a glass top and metal frame.",
-    __v: 0,
   },
   {
     //------ Chair-----------------
@@ -24,7 +23,6 @@ export const products = [
     color: "Brown",
     available: 30,
     description: "A comfortable wooden dining chair.",
-    __v: 0,
   },
   {
     name: "Dining Chair",
@@ -35,7 +33,6 @@ export const products = [
     color: "Brown",
     available: 30,
     description: "A comfortable wooden dining chair.",
-    __v: 0,
   },
   {
     name: "Armchair",
@@ -46,7 +43,6 @@ export const products = [
     color: "Gray",
     available: 15,
     description: "A cozy armchair perfect for relaxation.",
-    __v: 0,
   },
   {
     name: "Office Chair",
@@ -57,7 +53,6 @@ export const products = [
     color: "Black",
     available: 20,
     description: "An ergonomic office chair for long working hours.",
-    __v: 0,
   },
   {
     name: "Bar Stool",
@@ -68,7 +63,6 @@ export const products = [
     color: "Silver",
     available: 10,
     description: "A stylish bar stool with a modern design.",
-    __v: 0,
   },
   {
     name: "Rocking Chair",
@@ -79,7 +73,6 @@ export const products = [
     color: "Natural",
     available: 8,
     description: "A classic rocking chair for a relaxing experience.",
-    __v: 0,
   },
   {
     name: "Gaming Chair",
@@ -90,7 +83,6 @@ export const products = [
     color: "Red and Black",
     available: 5,
     description: "A comfortable gaming chair designed for gamers.",
-    __v: 0,
   },
   {
     name: "Kids Chair",
@@ -123,7 +115,6 @@ export const products = [
     color: "Purple",
     available: 15,
     description: "A fun and casual bean bag chair for lounging.",
-    __v: 0,
   },
   {
     name: "Patio Chair",
@@ -146,7 +137,6 @@ export const products = [
     color: "Gray",
     available: 10,
     description: "A luxurious leather sofa that fits any living room.",
-    __v: 0,
   },
   {
     //----------- Bed-----------------
@@ -158,7 +148,6 @@ export const products = [
     color: "Beige",
     available: 5,
     description: "A cozy queen size bed with a soft headboard.",
-    __v: 0,
   },
   {
     //----------- Wardrobe-----------------
@@ -170,7 +159,6 @@ export const products = [
     color: "White",
     available: 8,
     description: "A spacious wardrobe with sliding doors.",
-    __v: 0,
   },
   {
     //----------- Desk-----------------
@@ -182,7 +170,6 @@ export const products = [
     color: "Black",
     available: 15,
     description: "A stylish office desk with plenty of workspace.",
-    __v: 0,
   },
   {
     //----------- Bookshelf-----------------
@@ -195,6 +182,5 @@ export const products = [
     color: "Oak",
     available: 25,
     description: "A wooden bookshelf that holds your favorite books.",
-    __v: 0,
   },
 ];
