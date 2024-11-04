@@ -19,12 +19,10 @@ app.use(jwtCheck);
 app.get("/", addUserId, addUserInfo, async (req, res) => {
   const { userId, userInfo } = req;
   console.debug({ userId, userInfo });
-  await db.connect();
-  const products = await Product.find().populate("categoryId");
-  res.json(products);
+  res.json({ successfull: true });
 });
 
-app.use("/", productRoute);
+app.use("/products", productRoute);
 app.use("/", categoryRoutes);
 
 app.listen(PORT, () => {
