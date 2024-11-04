@@ -9,7 +9,9 @@ import { db } from "../util/db-connect.js";
 export const getAllProducts = async (req, res) => {
   try {
     await db.connect();
-    const products = await Product.find().populate("categoryId");
+    const products = await Product.find()
+      .select("name price categoryId")
+      .populate("categoryId", "name");
     res.json(products);
   } catch (error) {
     res.status(500).json({ error: error.message });
