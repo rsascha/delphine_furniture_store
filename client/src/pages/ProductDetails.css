@@ -11,12 +11,11 @@
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: "Arial", sans-serif;
+  font-family: "Arial", sans-seri
 }
 
 .product-details img {
-  max-width: 30%;
-  height: 50px;
+  height: 300px;
   border: 1.52px solid #ffffff; /* Set border color */
   border-radius: 8px;
   margin-bottom: 20px;
@@ -71,13 +70,13 @@
 
 /* Responsive design */
 
-@media (min-width: 600px) {
+@media (min-width: 800px) {
   .product-details {
     padding: 50px;
   }
 
   .product-details img {
-    max-width: 300px;
+    max-width: 600px;
   }
 }
 
