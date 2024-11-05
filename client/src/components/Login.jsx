@@ -1,23 +1,18 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { Link, useLocation } from "react-router-dom";
 
 const LoginButton = () => {
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
-
-  const redirect_uri = window.location.origin + "/login";
-  console.debug({ redirect_uri });
+  const { isAuthenticated } = useAuth0();
+  const { pathname } = useLocation();
 
   if (isAuthenticated) {
     return null;
   }
 
   return (
-    <button
-      onClick={() =>
-        loginWithRedirect({ authorizationParams: { redirect_uri } })
-      }
-    >
-      Log In
-    </button>
+    <Link to="/login" state={{ returnTo: pathname }}>
+      Log In {pathname}
+    </Link>
   );
 };
 

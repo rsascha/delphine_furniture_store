@@ -1,19 +1,18 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { Link, useLocation } from "react-router-dom";
 
 const LogoutButton = () => {
-  const { logout, isAuthenticated } = useAuth0();
-
-  const returnTo = window.location.origin + "/login";
-  console.debug({ returnTo });
+  const { isAuthenticated } = useAuth0();
+  const { pathname } = useLocation();
 
   if (!isAuthenticated) {
     return null;
   }
 
   return (
-    <button onClick={() => logout({ logoutParams: { returnTo } })}>
-      Log Out
-    </button>
+    <Link to="/login" state={{ returnTo: pathname }}>
+      Log Out {pathname}
+    </Link>
   );
 };
 
