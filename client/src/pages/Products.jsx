@@ -32,14 +32,14 @@ function Products() {
 
   async function addToCart(productId) {
     try {
-      const sessionId = "123";
+      // const userId = "";
       const amount = 1;
       const response = await fetch("http://localhost:3000/cart/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           _id: productId,
-          sessionId,
+          // userId,
           amount,
         }),
       });
@@ -55,12 +55,15 @@ function Products() {
 
   return (
     <div>
-      <h1>Welcome to the Products Page</h1>
+      <h1>All Furniture</h1>
       <div className="products-container">
         {products.map((product) => (
           <div key={product._id}>
-            <ProductCard key={product._id} product={product} />
-            <button onClick={() => addToCart(product._id)}>Add to cart</button>
+            <ProductCard
+              key={product._id}
+              product={product}
+              addToCart={addToCart}
+            />
           </div>
         ))}
       </div>
