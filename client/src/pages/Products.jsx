@@ -64,8 +64,11 @@ function Products() {
       <div className="products-container">
         {products.map((product) => (
           <div key={product._id}>
-            <ProductCard key={product._id} product={product} />
-            <button onClick={() => addToCart(product._id)}>Add to cart</button>
+            <ProductCard
+              key={product._id}
+              product={product}
+              addToCart={addToCart}
+            />
           </div>
         ))}
       </div>

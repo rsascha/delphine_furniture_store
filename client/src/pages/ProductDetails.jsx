@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import "./ProductDetails.css";
 function ProductDetails() {
-  const { productId} = useParams();
+  const { productId } = useParams();
+
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    fetch(`/products/${productId}`)
+    fetch(`http://localhost:3000/products/${productId}`)
       .then((res) => res.json())
       .then((data) => setProduct(data))
       .catch(console.error);
