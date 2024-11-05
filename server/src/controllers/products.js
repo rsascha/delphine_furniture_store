@@ -17,6 +17,23 @@ export const getAllProducts = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+// Best Selling Product
+/**
+ * @api GET /products/bestSelling
+ *
+ */
+export const bestSellingProducts = async (req, res) => {
+  try {
+    await db.connect();
+    const products = await Product.find()
+      .select("name price categoryId image")
+      .populate("categoryId", "name")
+      .limit(4);
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 /**
  * @api GET products/productId
  *
