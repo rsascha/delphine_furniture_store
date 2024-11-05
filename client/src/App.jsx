@@ -1,17 +1,11 @@
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import "./App.css";
-import Login from "./components/Login.jsx";
-import Logout from "./components/Logout.jsx";
+import Navbar from "./components/Navbar.jsx";
 
 function App() {
   return (
     <>
-      <Login />
-      <Logout />
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/products">Products</Link>
-      </nav>
+      <Navbar />
       <Outlet />
     </>
   );
