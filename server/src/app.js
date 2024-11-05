@@ -5,7 +5,7 @@ import categoryRoutes from "./routes/categories.js";
 import cartRoutes from "./routes/carts.js";
 // import { auth } from "express-oauth2-jwt-bearer";
 // import { config } from "./config.js";
-import { addUserInfo, addUserId } from "./middlewares/index.js";
+// import { addUserInfo, addUserId } from "./middlewares/index.js";
 import Product from "./models/Product.js";
 import { db } from "./util/db-connect.js";
 

@@ -3,7 +3,6 @@ import { Types } from "mongoose";
 export const products = [
   {
     //------ Table-----------------
-    _id: new Types.ObjectId("67289d112377a1ab51ab0007"),
     name: "Coffee Table",
     categoryId: new Types.ObjectId("67239c42ded8e96ba8db0e13"),
     price: 149.99,
@@ -15,7 +14,6 @@ export const products = [
   },
   {
     //------ Chair-----------------
-    _id: new Types.ObjectId("67289d112377a1ab51ab0008"),
     name: "Dining Chair",
     categoryId: new Types.ObjectId("67239c42ded8e96ba8db0e14"),
     price: 89.99,

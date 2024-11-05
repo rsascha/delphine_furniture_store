@@ -3,7 +3,7 @@ import { Types } from "mongoose";
 export const cart = [
   {
     // userId: new Types.ObjectId("67289d112377a1ab51ab0004"),
-    sessionId: "123",
+    userId: "123",
     products: [
       {
         productId: new Types.ObjectId("67289d112377a1ab51ab0007"),
