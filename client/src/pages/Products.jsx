@@ -37,14 +37,14 @@ function Products() {
 
   async function addToCart(productId) {
     try {
-      const sessionId = "123";
+      // const userId = "";
       const amount = 1;
       const response = await fetch("http://localhost:3000/cart/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           _id: productId,
-          sessionId,
+          // userId,
           amount,
         }),
       });
