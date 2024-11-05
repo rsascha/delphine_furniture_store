@@ -10,6 +10,7 @@ const productSchema = new Schema(
     color: { type: String, required: true },
     available: { type: Number, required: true },
     description: { type: String, required: true },
+    image: { type: String, required: true },
   },
   {
     versionKey: false,

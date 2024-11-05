@@ -12,6 +12,7 @@ export const products = [
     color: "Black",
     available: 20,
     description: "A stylish coffee table with a glass top and metal frame.",
+    image: "chair1.png",
   },
   {
     //------ Chair-----------------
@@ -23,6 +24,7 @@ export const products = [
     color: "Brown",
     available: 30,
     description: "A comfortable wooden dining chair.",
+    image: "chair1.png",
   },
   {
     name: "Dining Chair",
@@ -33,6 +35,7 @@ export const products = [
     color: "Brown",
     available: 30,
     description: "A comfortable wooden dining chair.",
+    image: "chair1.png",
   },
   {
     name: "Armchair",
@@ -43,6 +46,7 @@ export const products = [
     color: "Gray",
     available: 15,
     description: "A cozy armchair perfect for relaxation.",
+    image: "chair1.png",
   },
   {
     name: "Office Chair",
@@ -53,6 +57,7 @@ export const products = [
     color: "Black",
     available: 20,
     description: "An ergonomic office chair for long working hours.",
+    image: "chair1.png",
   },
   {
     name: "Bar Stool",
@@ -63,6 +68,7 @@ export const products = [
     color: "Silver",
     available: 10,
     description: "A stylish bar stool with a modern design.",
+    image: "chair1.png",
   },
   {
     name: "Rocking Chair",
@@ -73,6 +79,7 @@ export const products = [
     color: "Natural",
     available: 8,
     description: "A classic rocking chair for a relaxing experience.",
+    image: "chair1.png",
   },
   {
     name: "Gaming Chair",
@@ -83,6 +90,7 @@ export const products = [
     color: "Red and Black",
     available: 5,
     description: "A comfortable gaming chair designed for gamers.",
+    image: "chair1.png",
   },
   {
     name: "Kids Chair",
@@ -93,7 +101,7 @@ export const products = [
     color: "Blue",
     available: 50,
     description: "A colorful chair for kids' rooms.",
-    __v: 0,
+    image: "chair1.png",
   },
   {
     name: "Folding Chair",
@@ -104,7 +112,7 @@ export const products = [
     color: "Green",
     available: 25,
     description: "A lightweight folding chair for easy storage.",
-    __v: 0,
+    image: "chair1.png",
   },
   {
     name: "Bean Bag Chair",
@@ -115,6 +123,7 @@ export const products = [
     color: "Purple",
     available: 15,
     description: "A fun and casual bean bag chair for lounging.",
+    image: "chair1.png",
   },
   {
     name: "Patio Chair",
@@ -125,7 +134,7 @@ export const products = [
     color: "Beige",
     available: 10,
     description: "A weather-resistant patio chair for outdoor use.",
-    __v: 0,
+    image: "chair1.png",
   },
   {
     //----------- Sofa-----------------
@@ -137,6 +146,7 @@ export const products = [
     color: "Gray",
     available: 10,
     description: "A luxurious leather sofa that fits any living room.",
+    image: "chair1.png",
   },
   {
     //----------- Bed-----------------
@@ -148,6 +158,7 @@ export const products = [
     color: "Beige",
     available: 5,
     description: "A cozy queen size bed with a soft headboard.",
+    image: "chair1.png",
   },
   {
     //----------- Wardrobe-----------------
@@ -159,6 +170,7 @@ export const products = [
     color: "White",
     available: 8,
     description: "A spacious wardrobe with sliding doors.",
+    image: "chair1.png",
   },
   {
     //----------- Desk-----------------
@@ -170,6 +182,7 @@ export const products = [
     color: "Black",
     available: 15,
     description: "A stylish office desk with plenty of workspace.",
+    image: "chair1.png",
   },
   {
     //----------- Bookshelf-----------------
@@ -182,5 +195,6 @@ export const products = [
     color: "Oak",
     available: 25,
     description: "A wooden bookshelf that holds your favorite books.",
+    image: "chair1.png",
   },
 ];

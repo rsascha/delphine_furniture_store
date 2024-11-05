@@ -10,7 +10,7 @@ export const getAllProducts = async (req, res) => {
   try {
     await db.connect();
     const products = await Product.find()
-      .select("name price categoryId")
+      .select("name price categoryId image")
       .populate("categoryId", "name");
     res.json(products);
   } catch (error) {
