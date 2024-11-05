@@ -3,7 +3,6 @@ import { Types } from "mongoose";
 export const products = [
   {
     //------ Table-----------------
-
     name: "Coffee Table",
     categoryId: new Types.ObjectId("67239c42ded8e96ba8db0e13"),
     price: 149.99,
@@ -93,7 +92,6 @@ export const products = [
     color: "Blue",
     available: 50,
     description: "A colorful chair for kids' rooms.",
-    __v: 0,
   },
   {
     name: "Folding Chair",
@@ -104,7 +102,6 @@ export const products = [
     color: "Green",
     available: 25,
     description: "A lightweight folding chair for easy storage.",
-    __v: 0,
   },
   {
     name: "Bean Bag Chair",
@@ -125,7 +122,6 @@ export const products = [
     color: "Beige",
     available: 10,
     description: "A weather-resistant patio chair for outdoor use.",
-    __v: 0,
   },
   {
     //----------- Sofa-----------------
