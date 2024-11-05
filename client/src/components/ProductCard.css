@@ -21,3 +21,6 @@
   gap: 12px;
   align-items: center;
 }
+.product-card img {
+  height: 200px;
+}
