@@ -4,7 +4,7 @@ import "./ProductDetails.css";
 function ProductDetails() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   useEffect(() => {
     fetch(`http://localhost:3000/products/${productId}`)
       .then((res) => res.json())
@@ -42,16 +42,22 @@ function ProductDetails() {
   }
   return (
     <div className="product-details">
-      <img src="/path/to/product-image.jpg" alt={product.name} />
-      <h1>{product.name}</h1>
-      <p>{product.description}</p>
-      <p>Price: ${product.price}</p>
-      <p>Material: {product.material}</p>
-      <p>Size: {product.size}</p>
-      <p>Color: {product.color}</p>
-      <p>Available: {product.available}</p>
-      <button onClick={incrementCounter}>{count}</button>
-      <button onClick={() => addToCart(product._id)}>Add to cart</button>
+      <img src={`/${product.image}`} alt={product.image}></img>
+      <div>
+        <h1>{product.name}</h1>
+        <p>{product.description}</p>
+        <p className="price">Price: ${product.price}</p>
+        <p>Material: {product.material}</p>
+        <p>Size: {product.size}</p>
+        <p>Color: {product.color}</p>
+        <p>Available: {product.available}</p>
+        <div className="buttons">
+          <button onClick={() => setCount(count - 1)}>-</button>
+          <p>{count}</p>
+          <button onClick={() => setCount(count + 1)}>+</button>
+          <button onClick={() => addToCart(product._id)}>Add to cart</button>
+        </div>
+      </div>
     </div>
   );
 }
