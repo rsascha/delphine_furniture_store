@@ -21,7 +21,7 @@ function ProductDetails() {
   async function addToCart(productId) {
     try {
       // const userId = "";
-      const amount = 1;
+      const amount = count;
       const response = await fetch("http://localhost:3000/cart/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
