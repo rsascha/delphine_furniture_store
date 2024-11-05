@@ -18,7 +18,7 @@ export const getAllProducts = async (req, res) => {
   }
 };
 /**
- * @api GET /productDetails/productId
+ * @api GET products/productId
  *
  */
 export const productDetails = async (req, res) => {
