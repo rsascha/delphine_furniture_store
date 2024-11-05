@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import ProductCard from "../components/ProductCard.jsx";
 import "./Products.css";
 import { Link } from "react-router-dom";
+import Notification from "../components/Notification.jsx";
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -57,6 +58,7 @@ function Products() {
   return (
     <div>
       <h1>All Furniture</h1>
+      {/* <Notification show={true} message={"You need to login"}></Notification> */}
       <div className="products-container">
         {products.map((product) => (
           <div key={product._id}>
