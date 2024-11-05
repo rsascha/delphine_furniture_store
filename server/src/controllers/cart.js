@@ -41,7 +41,6 @@ export const cart = async (req, res) => {
         },
       ],
     });
-    console.log(cart);
     if (!Cart.products) {
       Cart.products = [];
     }
