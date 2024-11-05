@@ -10,6 +10,7 @@ import Home from "./pages/Home.jsx";
 import Products from "./pages/Products.jsx";
 import Profile from "./pages/Profile.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
+import { LoginPage } from "./LoginPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "/login", element: <LoginPage /> },
 ]);
 
 createRoot(document.getElementById("root")).render(

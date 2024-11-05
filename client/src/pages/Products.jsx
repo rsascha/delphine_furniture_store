@@ -1,27 +1,25 @@
 import { useEffect, useState } from "react";
-// import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 import ProductCard from "../components/ProductCard.jsx";
 import "./Products.css";
+import { Link } from "react-router-dom";
 
 function Products() {
   const [products, setProducts] = useState([]);
-  // const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   useEffect(() => {
     async function fetchProducts() {
       try {
-        // const accessToken = await getAccessTokenSilently().catch((error) => {
-        //   console.warn("Could not get access token:", error);
-        //   return null;
-        // });
-
+        let accessToken = "";
+        if (isAuthenticated) {
+          accessToken = await getAccessTokenSilently();
+        }
         const response = await fetch("http://localhost:3000/products", {
-          // headers: {
-          //   Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
-          // },
+          headers: {
+            Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
+          },
         });
-
-        if (!response.ok) throw new Error("Network response was not ok");
 
         const data = await response.json();
         setProducts(data);
@@ -29,11 +27,8 @@ function Products() {
         console.error("Error fetching products:", error);
       }
     }
-
-    fetchProducts(); // Trigger the fetch on component load
-  }, []);
-  // }, [getAccessTokenSilently]); // Include getAccessTokenSilently in the dependency array
-  // Funktion zum Hinzufügen eines Produkts in den Warenkorb
+    fetchProducts();
+  }, [isAuthenticated, getAccessTokenSilently]);
 
   async function addToCart(productId) {
     try {
@@ -72,6 +67,9 @@ function Products() {
           </div>
         ))}
       </div>
+      <Link to="/login" state={{ returnTo: "/products" }}>
+        Login
+      </Link>
     </div>
   );
 }
