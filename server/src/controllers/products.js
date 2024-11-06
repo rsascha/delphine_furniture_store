@@ -2,17 +2,18 @@ import Product from "../models/Product.js";
 import { db } from "../util/db-connect.js";
 import Category from "../models/Category.js";
 
-// Alle Produkte abrufen
+// Best Selling Product
 /**
- * @api GET /products
+ * @api GET /products/bestSelling
  *
  */
-export const getAllProducts = async (req, res) => {
+export const bestSellingProducts = async (req, res) => {
   try {
     await db.connect();
     const products = await Product.find()
       .select("name price categoryId image")
-      .populate("categoryId", "name");
+      .populate("categoryId", "name")
+      .limit(4);
     res.json(products);
   } catch (error) {
     res.status(500).json({ error: error.message });

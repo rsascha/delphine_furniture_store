@@ -1,31 +1,32 @@
 /* ProductDetails.css */
 
 .product-details {
-  max-width: 1200px;
-  margin: 0 auto;
+  margin: 0;
   padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: "Arial", sans-seri
+  font-family: "Arial", sans-serif;
+}
+
+.product-details-image {
+  max-width: 1200px;
+  width: 100%;
+  background-color: rgb(247, 247, 247, 1);
+  height: 500px;
 }
 
 .product-details img {
-  height: 300px;
-  border: 1.52px solid #ffffff; /* Set border color */
+  width: 60%;
   border-radius: 8px;
-  margin-bottom: 20px;
-  background-color: #ffffff;
+  margin-top: 50px;
 }
 
 .product-details h1 {
   font-size: 2.5em;
   margin: 20px 0;
-  color: #333;
+  color: #5d5454;
 }
 
 .product-details p {
@@ -35,8 +36,8 @@
 }
 
 .product-details .price {
-  font-size: 1.5em;
-  color: #305f64; /* Set price color */
+  font-size: 2em;
+  color: #305f64;
   margin: 15px 0;
 }
 
@@ -44,6 +45,14 @@
   text-align: left;
   width: 100%;
   padding: 0 20px;
+}
+
+.product-details .info {
+  font-size: 1em;
+  color: #333;
+  margin: 10px 0;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
 }
 
 .product-details .buttons {
@@ -65,22 +74,31 @@
 }
 
 .product-details button:hover {
-  background-color: #0056b3;
+  background-color: #505251;
 }
-
-/* Responsive design */
 
 @media (min-width: 800px) {
   .product-details {
     padding: 50px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .product-details-image {
+    width: 50%;
+    margin-right: 20px;
+  }
+  .product-details .details-container {
+    width: 50%;
+    text-align: left;
+    margin-left: 0;
   }
 
   .product-details img {
-    max-width: 600px;
+    height: auto;
+    max-width: 100%;
   }
-}
 
-@media (min-width: 992px) {
   .product-details h1 {
     font-size: 3em;
   }
@@ -91,5 +109,19 @@
 
   .product-details button {
     font-size: 1.2em;
+  }
+}
+
+@media (min-width: 992px) {
+  .product-details h1 {
+    font-size: 3.5em;
+  }
+
+  .product-details p {
+    font-size: 1.6em;
+  }
+
+  .product-details button {
+    font-size: 1.3em;
   }
 }

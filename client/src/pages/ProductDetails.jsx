@@ -15,9 +15,7 @@ function ProductDetails() {
   if (!product) {
     return <div>Loading...</div>;
   }
-  const incrementCounter = () => {
-    setCount(count + 1);
-  };
+
   async function addToCart(productId) {
     try {
       // const userId = "";
@@ -42,15 +40,17 @@ function ProductDetails() {
   }
   return (
     <div className="product-details">
-      <img src={`/${product.image}`} alt={product.image}></img>
-      <div>
+      <div className="product-details-image">
+        <img src={`/${product.image}`} alt={product.image}></img>
+      </div>
+      <div className="details-container">
         <h1>{product.name}</h1>
         <p>{product.description}</p>
         <p className="price">Price: ${product.price}</p>
-        <p>Material: {product.material}</p>
-        <p>Size: {product.size}</p>
-        <p>Color: {product.color}</p>
-        <p>Available: {product.available}</p>
+        <p className="info">Material: {product.material}</p>
+        <p className="info">Size: {product.size}</p>
+        <p className="info">Color: {product.color}</p>
+        <p className="info">Available: {product.available}</p>
         <div className="buttons">
           <button onClick={() => setCount(count - 1)}>-</button>
           <p>{count}</p>
