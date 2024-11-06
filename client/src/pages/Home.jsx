@@ -78,19 +78,18 @@ function Home() {
                 <h3>{product.name}</h3>
                 {/* <div> */}
                 <p>
-                  ${product.price}
+                  <span>${product.price}</span>
+
                   <button onClick={() => addToCart(product._id)}>+</button>
                   {/* </div> */}
                 </p>
               </div>
             ))}
           </div>
-          <Link to="/login" state={{ returnTo: "/products" }}>
-            Login
-          </Link>
-          <a href="#" className="view-all">
+
+          <Link to="/products" className="view-all">
             View All →
-          </a>
+          </Link>
         </section>
 
         <section className="subscription">
