@@ -1,12 +1,3 @@
-// function Cart() {
-//   return <h1>Welcome to the Cart Page</h1>;
-// }
-
-// export default Cart;
-
-//-------------
-
-
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
