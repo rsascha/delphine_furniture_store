@@ -7,7 +7,7 @@ import FilterBar from "../components/Filterbar.jsx";
 
 function Products() {
   const [products, setProducts] = useState([]);
-  const { getAccessTokenSilently, isAuthenticated, user } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const navigate = useNavigate();
 
   const [filters, setFilters] = useState({
@@ -57,7 +57,10 @@ function Products() {
   }, [isAuthenticated, getAccessTokenSilently, filters]); // Füge filters als Abhängigkeit hinzu
 
   async function addToCart(productId) {
-    if (!isAuthenticated) {
+    let accessToken = "";
+    if (isAuthenticated) {
+      accessToken = await getAccessTokenSilently();
+    } else {
       alert(
         "Bitte loggen Sie sich ein, um Produkte in den Warenkorb zu legen."
       );
@@ -65,19 +68,15 @@ function Products() {
       return;
     }
     try {
-      let userId = user.sub;
-
-      if (!userId) {
-        throw new Error("User ID could not be found");
-      }
-      console.log("----", userId);
       const amount = 1;
       const response = await fetch("http://localhost:3000/cart/add", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
+        },
         body: JSON.stringify({
           _id: productId,
-          userId: userId,
           amount,
         }),
       });

@@ -1,6 +1,7 @@
 import Cart from "../models/Cart.js";
 import { db } from "../util/db-connect.js";
 import Product from "../models/Product.js";
+import { userInfo } from "os";
 
 /**
  * @api POST /cart/add
@@ -10,11 +11,23 @@ import Product from "../models/Product.js";
  *    "amount":2
  * }
  */
-
+function updateProduct(products, productId, amount) {
+  products.map((product) => {
+    if (product.id === productId) {
+      return {
+        ...product,
+        amount: product.amount + amount,
+      };
+    } else {
+      return product;
+    }
+  });
+}
 export const cart = async (req, res) => {
   try {
+    const userId = req.userId;
     await db.connect();
-    const { _id, amount, userId } = req.body;
+    const { _id, amount } = req.body;
 
     if (!_id || !amount || !userId) {
       return res.json({ message: "Missing required fields" });
@@ -32,13 +45,7 @@ export const cart = async (req, res) => {
     let cart = await Cart.findOne({ userId: userId });
     if (!cart) {
       cart = new Cart({
-        userId: userId,
-        products: [],
-      });
-    } else {
-      cart = {
-        userId: userId,
-
+        userId,
         products: [
           {
             productId: _id,
@@ -46,12 +53,20 @@ export const cart = async (req, res) => {
             amount: amount,
           },
         ],
-      };
+      });
+    } else {
+      // cart.products.push({
+      //   productId: _id,
+      //   date: Date.now(),
+      //   amount,
+      // });
+      cart.products = updateProduct(cart.products, _id, amount);
+      cart.products.push({
+        productId: _id,
+        date: Date.now(),
+        amount,
+      });
     }
-    // if (!Cart.products) {
-    //   Cart.products = [];
-    // }
-    Cart.products.push(cart);
     await cart.save();
 
     res.json({ message: "Product added to cart" });
