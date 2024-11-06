@@ -6,8 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Products() {
   const [products, setProducts] = useState([]);
-  const { getAccessTokenSilently, isAuthenticated, user, isLoading } =
-    useAuth0();
+  const { getAccessTokenSilently, isAuthenticated, user } = useAuth0();
   const navigate = useNavigate();
   useEffect(() => {
     async function fetchProducts() {
@@ -30,6 +29,7 @@ function Products() {
     }
     fetchProducts();
   }, [isAuthenticated, getAccessTokenSilently]);
+
   async function addToCart(productId) {
     if (!isAuthenticated) {
       alert(
@@ -41,7 +41,6 @@ function Products() {
     try {
       let userId = user.sub;
 
-      // Sicherstellen, dass user und user.sub verfügbar sind
       if (!userId) {
         throw new Error("User ID could not be found");
       }

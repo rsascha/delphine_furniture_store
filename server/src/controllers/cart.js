@@ -14,10 +14,9 @@ import Product from "../models/Product.js";
 export const cart = async (req, res) => {
   try {
     await db.connect();
-    const { _id, amount } = req.body;
-    // const { userId } = req;
+    const { _id, amount, userId } = req.body;
 
-    if (!_id || !amount) {
+    if (!_id || !amount || !userId) {
       return res.json({ message: "Missing required fields" });
     }
     const product = await Product.findById(_id);
@@ -30,20 +29,28 @@ export const cart = async (req, res) => {
     product.available -= amount;
     await product.save();
 
-    const cart = new Cart({
-      // userId: userId,
+    let cart = await Cart.findOne({ userId: userId });
+    if (!cart) {
+      cart = new Cart({
+        userId: userId,
+        products: [],
+      });
+    } else {
+      cart = {
+        userId: userId,
 
-      products: [
-        {
-          productId: _id,
-          date: Date.now(),
-          amount: amount,
-        },
-      ],
-    });
-    if (!Cart.products) {
-      Cart.products = [];
+        products: [
+          {
+            productId: _id,
+            date: Date.now(),
+            amount: amount,
+          },
+        ],
+      };
     }
+    // if (!Cart.products) {
+    //   Cart.products = [];
+    // }
     Cart.products.push(cart);
     await cart.save();
 
