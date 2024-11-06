@@ -25,6 +25,7 @@ export const bestSellingProducts = async (req, res) => {
  */
 export const productDetails = async (req, res) => {
   const { productId } = req.params;
+  console.log("productdId", productId);
   try {
     await db.connect();
     const product = await Product.findById(productId);
@@ -40,7 +41,7 @@ export const productDetails = async (req, res) => {
 
 //FILTER CATEGORIES
 export const filterProducts = async (req, res) => {
-  const { category } = req.query; // Hole den Kategorie-Filter
+  const { category, minPrice, maxPrice, filter, color, material } = req.query; // Hole den Kategorie-Filter
 
   try {
     await db.connect();
@@ -51,10 +52,31 @@ export const filterProducts = async (req, res) => {
 
     // Baue die Filterkriterien
     const filterCriteria = {};
+
     if (categoryDoc) {
       filterCriteria.categoryId = categoryDoc._id; // Filter nach categoryId
     }
 
+    if (minPrice) {
+      filterCriteria.price = {
+        ...filterCriteria.price,
+        $gte: Number(minPrice),
+      };
+    }
+    if (maxPrice) {
+      filterCriteria.price = {
+        ...filterCriteria.price,
+        $lte: Number(maxPrice),
+      };
+    }
+
+    if (color) {
+      filterCriteria.color = color;
+    }
+
+    if (material) {
+      filterCriteria.material = material;
+    }
     // Finde Produkte anhand der Filterkriterien
     const products = await Product.find(filterCriteria)
       .select("name price categoryId image")
@@ -63,6 +85,31 @@ export const filterProducts = async (req, res) => {
     res.json(products);
   } catch (error) {
     console.error("Error fetching products:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// get all colors
+
+export const getAvailableColors = async (req, res) => {
+  try {
+    const colors = await Product.distinct("color");
+    console.log(colors);
+    res.json(colors);
+  } catch (error) {
+    console.error("Error fetching colors:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// get all materials
+export const getAvailableMaterials = async (req, res) => {
+  try {
+    const materials = await Product.distinct("material");
+    console.log(materials);
+    res.json(materials);
+  } catch (error) {
+    console.error("Error fetching materials:", error);
     res.status(500).json({ error: error.message });
   }
 };
