@@ -2,10 +2,16 @@ import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import ProductCard from "../components/ProductCard.jsx";
 import "./Products.css";
+
+import { useNavigate } from "react-router-dom";
+
 import FilterBar from "../components/Filterbar.jsx";
 
 function Products() {
   const [products, setProducts] = useState([]);
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
+  const navigate = useNavigate();
+
   const [filters, setFilters] = useState({
     category: "",
     color: "",
@@ -15,7 +21,6 @@ function Products() {
   });
   const [availableColors, setAvailableColors] = useState([]);
   const [availableMaterials, setAvailableMaterials] = useState([]);
-  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   useEffect(() => {
     async function fetchProducts() {
@@ -114,11 +119,24 @@ function Products() {
   };
 
   async function addToCart(productId) {
+    let accessToken = "";
+    if (isAuthenticated) {
+      accessToken = await getAccessTokenSilently();
+    } else {
+      alert(
+        "Bitte loggen Sie sich ein, um Produkte in den Warenkorb zu legen."
+      );
+      navigate("/login", { state: { returnTo: "/products" } });
+      return;
+    }
     try {
       const amount = 1;
       const response = await fetch("http://localhost:3000/cart/add", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
+        },
         body: JSON.stringify({
           _id: productId,
           amount,
@@ -154,6 +172,7 @@ function Products() {
           </div>
         ))}
       </div>
+
     </div>
   );
 }
