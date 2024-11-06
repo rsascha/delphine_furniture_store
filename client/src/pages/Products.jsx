@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import ProductCard from "../components/ProductCard.jsx";
 import "./Products.css";
-import { Link } from "react-router-dom";
 import FilterBar from "../components/Filterbar.jsx";
 
 function Products() {
@@ -11,6 +10,8 @@ function Products() {
     category: "",
     color: "",
     material: "",
+    minPrice: "",
+    maxPrice: "",
   });
   const [availableColors, setAvailableColors] = useState([]);
   const [availableMaterials, setAvailableMaterials] = useState([]);
@@ -82,6 +83,36 @@ function Products() {
     fetchColors();
   }, [isAuthenticated, getAccessTokenSilently, filters]); // Füge filters als Abhängigkeit hinzu
 
+  const getHeadingText = () => {
+    if (
+      filters.category ||
+      filters.color ||
+      filters.material ||
+      filters.minPrice ||
+      filters.maxPrice
+    ) {
+      let heading = "";
+
+      if (filters.category) {
+        heading += `    Category: ${filters.category}`;
+      }
+      if (filters.color) {
+        heading += `    Color: ${filters.color}`;
+      }
+      if (filters.material) {
+        heading += `    Material: ${filters.material}`;
+      }
+      if (filters.minPrice || filters.maxPrice) {
+        heading += `    Price: ${
+          filters.minPrice ? `From ${filters.minPrice}` : ""
+        } ${filters.maxPrice ? `To ${filters.maxPrice}` : ""}`;
+      }
+
+      return heading;
+    }
+    return "All Furniture";
+  };
+
   async function addToCart(productId) {
     try {
       const amount = 1;
@@ -114,7 +145,7 @@ function Products() {
         availableColors={availableColors}
         availableMaterials={availableMaterials}
       />
-      <h1>All Furniture</h1>
+      <h1 className="dynamic-h1-filter">{getHeadingText()}</h1>
       {/* <Notification show={true} message={"You need to login"}></Notification> */}
       <div className="products-container">
         {products.map((product) => (
@@ -123,9 +154,6 @@ function Products() {
           </div>
         ))}
       </div>
-      <Link to="/login" state={{ returnTo: "/products" }}>
-        Login
-      </Link>
     </div>
   );
 }
