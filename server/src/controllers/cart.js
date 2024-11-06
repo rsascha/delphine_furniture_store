@@ -14,7 +14,6 @@ import Product from "../models/Product.js";
 export const getCart = async (req, res) => {
   try {
     const userId = req.userId;
-    console.log(userId);
     if (!userId) return res.status(401).json({ error: "Unauthorized" });
 
     const cart = await Cart.findOne({ userId }).populate(
