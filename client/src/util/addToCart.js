@@ -1,6 +1,12 @@
-async function addToCart() {
+export async function addToCart({
+  productId,
+  amount = 1,
+  isAuthenticated,
+  getAccessTokenSilently,
+  navigate,
+  setCartCount,
+}) {
   try {
-    const amount = 1;
     let accessToken = "";
     if (isAuthenticated) {
       accessToken = await getAccessTokenSilently();
@@ -28,9 +34,8 @@ async function addToCart() {
       throw new Error("Data fetching error");
     }
 
-    const data = await response.json();
-    console.log(data);
-    alert("Product added to cart");
+    // const data = await response.json();
+    setCartCount((prevCount) => prevCount + amount);
   } catch (error) {
     console.error("Error adding product to cart:", error);
   }
