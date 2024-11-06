@@ -1,7 +1,6 @@
 import Cart from "../models/Cart.js";
 import { db } from "../util/db-connect.js";
 import Product from "../models/Product.js";
-import { userInfo } from "os";
 
 /**
  * @api POST /cart/add
