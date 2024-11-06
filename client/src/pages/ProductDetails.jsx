@@ -32,7 +32,6 @@ function ProductDetails() {
       if (!response.ok) {
         throw new Error("Data fetching error");
       }
-      const data = await response.json();
       alert("Product added to cart");
     } catch (error) {
       console.error("Error fetching products:", error);
