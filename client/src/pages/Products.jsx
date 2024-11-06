@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import ProductCard from "../components/ProductCard.jsx";
 import "./Products.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Products() {
   const [products, setProducts] = useState([]);
-  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
-
+  const { getAccessTokenSilently, isAuthenticated, user, isLoading } =
+    useAuth0();
+  const navigate = useNavigate();
   useEffect(() => {
     async function fetchProducts() {
       try {
@@ -29,17 +30,29 @@ function Products() {
     }
     fetchProducts();
   }, [isAuthenticated, getAccessTokenSilently]);
-
   async function addToCart(productId) {
+    if (!isAuthenticated) {
+      alert(
+        "Bitte loggen Sie sich ein, um Produkte in den Warenkorb zu legen."
+      );
+      navigate("/login", { state: { returnTo: "/products" } });
+      return;
+    }
     try {
-      // const userId = "";
+      let userId = user.sub;
+
+      // Sicherstellen, dass user und user.sub verfügbar sind
+      if (!userId) {
+        throw new Error("User ID could not be found");
+      }
+      console.log("----", userId);
       const amount = 1;
       const response = await fetch("http://localhost:3000/cart/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           _id: productId,
-          // userId,
+          userId: userId,
           amount,
         }),
       });
@@ -68,9 +81,9 @@ function Products() {
           </div>
         ))}
       </div>
-      <Link to="/login" state={{ returnTo: "/products" }}>
+      {/* <Link to="/login" state={{ returnTo: "/products" }}>
         Login
-      </Link>
+      </Link> */}
     </div>
   );
 }
