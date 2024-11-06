@@ -82,6 +82,7 @@ function Products() {
     <div>
       <FilterBar filters={filters} onFilterChange={setFilters} />
       <h1>All Furniture</h1>
+      {/* <Notification show={true} message={"You need to login"}></Notification> */}
       <div className="products-container">
         {products.map((product) => (
           <div key={product._id}>
