@@ -25,7 +25,6 @@ export const bestSellingProducts = async (req, res) => {
  */
 export const productDetails = async (req, res) => {
   const { productId } = req.params;
-  console.log("productdId", productId);
   try {
     await db.connect();
     const product = await Product.findById(productId);
@@ -94,7 +93,6 @@ export const filterProducts = async (req, res) => {
 export const getAvailableColors = async (req, res) => {
   try {
     const colors = await Product.distinct("color");
-    console.log(colors);
     res.json(colors);
   } catch (error) {
     console.error("Error fetching colors:", error);
@@ -106,7 +104,6 @@ export const getAvailableColors = async (req, res) => {
 export const getAvailableMaterials = async (req, res) => {
   try {
     const materials = await Product.distinct("material");
-    console.log(materials);
     res.json(materials);
   } catch (error) {
     console.error("Error fetching materials:", error);
