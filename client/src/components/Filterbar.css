@@ -1,0 +1,16 @@
+.filter-bar {
+  display: flex;
+  gap: 15px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.filter-bar select,
+.filter-bar input {
+  padding: 5px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

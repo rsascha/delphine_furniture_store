@@ -86,12 +86,10 @@ function Home() {
               </div>
             ))}
           </div>
-          <Link to="/login" state={{ returnTo: "/products" }}>
-            Login
-          </Link>
-          <a href="#" className="view-all">
+
+          <Link to="/products" className="view-all">
             View All →
-          </a>
+          </Link>
         </section>
 
         <section className="subscription">
