@@ -11,10 +11,7 @@ const ProductCard = ({ product, addToCart }) => {
 
       <div className="productCardBottomContainer">
         <p className="productPrice">${product.price}</p>
-        {/* <button className="productAdd" onClick={() => addToCart(product._id)}>
 
-          +
-        </button> */}
         <AddToCartButton productId={product._id} />
       </div>
       <Link to={`/products/${product._id}`}>See more</Link>

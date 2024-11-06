@@ -18,29 +18,6 @@ function ProductDetails() {
     return <div>Loading...</div>;
   }
 
-  // async function addToCart(productId) {
-  //   try {
-  //     // const userId = "";
-  //     const amount = count;
-
-  //     const response = await fetch("http://localhost:3000/cart/add", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         _id: productId,
-  //         // userId,
-  //         amount,
-  //       }),
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error("Data fetching error");
-  //     }
-  //     const data = await response.json();
-  //     alert("Product added to cart");
-  //   } catch (error) {
-  //     console.error("Error fetching products:", error);
-  //   }
-  // }
   return (
     <div className="product-details">
       <div className="product-details-image">
@@ -58,7 +35,6 @@ function ProductDetails() {
           <button onClick={() => setCount(count - 1)}>-</button>
           <p>{count}</p>
           <button onClick={() => setCount(count + 1)}>+</button>
-          {/* <button onClick={() => addToCart(product._id)}>Add to cart</button> */}
           <AddToCartButton
             productId={product._id}
             amount={count}

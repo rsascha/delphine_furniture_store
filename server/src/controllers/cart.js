@@ -2,15 +2,32 @@ import Cart from "../models/Cart.js";
 import { db } from "../util/db-connect.js";
 import Product from "../models/Product.js";
 
-/**
- * @api POST /cart/add
- *{
- *    "_id": 67289d112377a1ab51abcd40,
- *    "sessionId":"123"
- *    "amount":2
- * }
- */
+// /**
+//  * @api POST /cart/add
+//  *{
+//  *    "_id": 67289d112377a1ab51abcd40,
+//  *    "sessionId":"123"
+//  *    "amount":2
+//  * }
+//  */
 
+export const getCart = async (req, res) => {
+  try {
+    const userId = req.userId;
+    if (!userId) return res.status(401).json({ error: "Unauthorized" });
+
+    const cart = await Cart.findOne({ userId }).populate(
+      "products.productId",
+      "name price image"
+    );
+    if (!cart) return res.json({ products: [] });
+
+    res.json(cart);
+  } catch (error) {
+    console.log(error);
+    res.send("Internal server error");
+  }
+};
 export const addToCart = async (req, res) => {
   try {
     const userId = req.userId;
