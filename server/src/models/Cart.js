@@ -32,7 +32,10 @@ import { model, Schema } from "mongoose";
 
 const cartSchema = new Schema(
   {
-    userId: { type: String, required: true },
+    userId: {
+      type: String,
+      required: true,
+    },
     products: [
       {
         productId: {

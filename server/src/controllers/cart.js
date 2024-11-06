@@ -11,51 +11,6 @@ import Product from "../models/Product.js";
 //  * }
 //  */
 
-// export const cart = async (req, res) => {
-//   try {
-//     await db.connect();
-//     const { _id, amount } = req.body;
-//     // const { userId } = req;
-
-//     if (!_id || !amount) {
-//       return res.json({ message: "Missing required fields" });
-//     }
-//     const product = await Product.findById(_id);
-//     if (!product) {
-//       return res.json({ message: "Product not found" });
-//     }
-//     if (product.available < amount) {
-//       return res.json({ message: "Not enough product available" });
-//     }
-//     product.available -= amount;
-//     await product.save();
-
-//     const cart = new Cart({
-//       // userId: userId,
-
-//       products: [
-//         {
-//           productId: _id,
-//           date: Date.now(),
-//           amount: amount,
-//         },
-//       ],
-//     });
-//     if (!Cart.products) {
-//       Cart.products = [];
-//     }
-//     Cart.products.push(cart);
-//     await cart.save();
-
-//     res.json({ message: "Product added to cart" });
-//   } catch (error) {
-//     console.log(error);
-//     res.json({ message: "Internal server error" });
-//   }
-// };
-
-//-------------
-
 export const getCart = async (req, res) => {
   try {
     const userId = req.userId;
@@ -70,36 +25,60 @@ export const getCart = async (req, res) => {
 
     res.json(cart);
   } catch (error) {
-    console.error("Error fetching cart:", error);
-    res.status(500).json({ error: error.message });
+    console.log(error);
+    res.send("Internal server error");
   }
 };
-
 export const addToCart = async (req, res) => {
   try {
-    const userId = req.user.sub;
-    if (!userId) return res.status(401).json({ error: "Unauthorized" });
+    const userId = req.userId;
+    await db.connect();
+    const { _id, amount } = req.body;
 
-    const { productId, amount } = req.body;
-    let cart = await Cart.findOne({ userId });
+    if (!_id || !amount || !userId) {
+      return res.json({ message: "Missing required fields" });
+    }
+    const product = await Product.findById(_id);
+    if (!product) {
+      return res.json({ message: "Product not found" });
+    }
+    if (product.available < amount) {
+      return res.json({ message: "Not enough product available" });
+    }
+    product.available -= amount;
+    await product.save();
 
+    let cart = await Cart.findOne({ userId: userId });
     if (!cart) {
-      cart = new Cart({ userId, products: [{ productId, amount }] });
+      cart = new Cart({
+        userId,
+        products: [
+          {
+            productId: _id,
+            date: Date.now(),
+            amount: amount,
+          },
+        ],
+      });
     } else {
-      const productIndex = cart.products.findIndex((p) =>
-        p.productId.equals(productId)
+      const existingProductIndex = cart.products.findIndex(
+        (product) => product.productId.toString() === _id
       );
-      if (productIndex > -1) {
-        cart.products[productIndex].amount += amount;
+      if (existingProductIndex > -1) {
+        cart.products[existingProductIndex].amount += amount;
       } else {
-        cart.products.push({ productId, amount });
+        cart.products.push({
+          productId: _id,
+          date: Date.now(),
+          amount,
+        });
       }
     }
-
     await cart.save();
-    res.status(200).json(cart);
+
+    res.json({ message: "Product added to cart" });
   } catch (error) {
-    console.error("Error adding to cart:", error);
-    res.status(500).json({ error: error.message });
+    console.log(error);
+    res.json({ message: "Internal server error" });
   }
 };
