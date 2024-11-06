@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 // import ProductCard from "../components/ProductCard.jsx";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import AddToCartButton from "../components/AddToCart.jsx";
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -34,41 +35,6 @@ function Home() {
     fetchBestSelling();
   }, [isAuthenticated, getAccessTokenSilently]);
 
-  async function addToCart(productId) {
-    try {
-      const amount = 1;
-      let accessToken = "";
-      if (isAuthenticated) {
-        accessToken = await getAccessTokenSilently();
-      } else {
-        alert(
-          "Bitte loggen Sie sich ein, um Produkte in den Warenkorb zu legen."
-        );
-        navigate("/login", { state: { returnTo: "/products" } });
-        return;
-      }
-      const response = await fetch("http://localhost:3000/cart/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
-        },
-        body: JSON.stringify({
-          _id: productId,
-          amount,
-        }),
-      });
-      if (!response.ok) {
-        throw new Error("Data fetching error");
-      }
-      const data = await response.json();
-      console.log(data);
-      alert("Product added to cart");
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  }
-
   return (
     <>
       <div className="home-content">
@@ -94,7 +60,8 @@ function Home() {
                 <p>
                   <span>${product.price}</span>
 
-                  <button onClick={() => addToCart(product._id)}>+</button>
+                  <AddToCartButton productId={product._id} />
+
                   {/* </div> */}
                 </p>
               </div>
