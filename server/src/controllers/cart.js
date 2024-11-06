@@ -11,19 +11,8 @@ import { userInfo } from "os";
  *    "amount":2
  * }
  */
-function updateProduct(products, productId, amount) {
-  products.map((product) => {
-    if (product.id === productId) {
-      return {
-        ...product,
-        amount: product.amount + amount,
-      };
-    } else {
-      return product;
-    }
-  });
-}
-export const cart = async (req, res) => {
+
+export const addToCart = async (req, res) => {
   try {
     const userId = req.userId;
     await db.connect();
@@ -55,17 +44,18 @@ export const cart = async (req, res) => {
         ],
       });
     } else {
-      // cart.products.push({
-      //   productId: _id,
-      //   date: Date.now(),
-      //   amount,
-      // });
-      cart.products = updateProduct(cart.products, _id, amount);
-      cart.products.push({
-        productId: _id,
-        date: Date.now(),
-        amount,
-      });
+      const existingProductIndex = cart.products.findIndex(
+        (product) => product.productId.toString() === _id
+      );
+      if (existingProductIndex > -1) {
+        cart.products[existingProductIndex].amount += amount;
+      } else {
+        cart.products.push({
+          productId: _id,
+          date: Date.now(),
+          amount,
+        });
+      }
     }
     await cart.save();
 
