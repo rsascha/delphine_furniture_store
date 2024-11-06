@@ -9,7 +9,11 @@ function Products() {
   const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState({
     category: "",
+    color: "",
+    material: "",
   });
+  const [availableColors, setAvailableColors] = useState([]);
+  const [availableMaterials, setAvailableMaterials] = useState([]);
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   useEffect(() => {
@@ -51,7 +55,31 @@ function Products() {
       }
     }
 
+    async function fetchColors() {
+      try {
+        const response = await fetch("http://localhost:3000/products/colors");
+        const colors = await response.json();
+        setAvailableColors(colors);
+      } catch (error) {
+        console.error("Error fetching colors:", error);
+      }
+    }
+
+    async function fetchMaterials() {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/products/materials"
+        ); // API für Materialien
+        const materials = await response.json();
+        setAvailableMaterials(materials); // Setze die verfügbaren Materialien
+      } catch (error) {
+        console.error("Error fetching materials:", error);
+      }
+    }
+
+    fetchMaterials();
     fetchProducts();
+    fetchColors();
   }, [isAuthenticated, getAccessTokenSilently, filters]); // Füge filters als Abhängigkeit hinzu
 
   async function addToCart(productId) {
@@ -80,7 +108,12 @@ function Products() {
 
   return (
     <div>
-      <FilterBar filters={filters} onFilterChange={setFilters} />
+      <FilterBar
+        filters={filters}
+        onFilterChange={setFilters}
+        availableColors={availableColors}
+        availableMaterials={availableMaterials}
+      />
       <h1>All Furniture</h1>
       {/* <Notification show={true} message={"You need to login"}></Notification> */}
       <div className="products-container">
