@@ -1,0 +1,20 @@
+.productAdd {
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  margin-left: 8rem;
+  color: white;
+  background-color: rgb(22, 22, 51);
+  font-weight: 900;
+  padding: 0;
+}
+
+.productAdd:hover {
+  color: rgb(22, 22, 51);
+  background-color: white;
+  transform: scale(1.25);
+  transition: transform 0.3s;
+}

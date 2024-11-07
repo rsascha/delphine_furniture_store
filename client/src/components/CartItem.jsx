@@ -1,6 +1,43 @@
 import "./CartItem.css";
+import { useOutletContext } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, productId, onUpdateAmount }) => {
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
+  const { changeCartCount } = useOutletContext();
+
+
+  async function editCart(newAmount) {
+    let accessToken = "";
+    if (isAuthenticated) {
+      accessToken = await getAccessTokenSilently();
+    }
+    try {
+      const response = await fetch("http://localhost:3000/cart/edit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
+        },
+        body: JSON.stringify({
+          _id: productId,
+          amount: newAmount,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Data fetching error");
+      }
+
+      const data = await response.json();
+      changeCartCount(data.cartCount);
+      onUpdateAmount(productId, newAmount);
+      console.log(data);
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+    }
+  }
+
   return (
     <div className="cart-item">
       <div className="item-info">
@@ -10,15 +47,14 @@ const CartItem = ({ item }) => {
         <div className="info-section">
           <div className="info-container">
             <h3>{item.productId.name}</h3>
-            <span className="quantity-section">Quantity: {item.amount}</span>
             {/* <p className="price-section">Price: ${item.productId.price}</p> */}
             <div className="total">
               <p>Total: ${item.amount * item.productId.price.toFixed(2)}</p>
             </div>{" "}
             <div className="quantity">
-              <button>-</button>
+              <button onClick={() => editCart(item.amount - 1)}>-</button>
               <span>{item.amount}</span>
-              <button>+</button>
+              <button onClick={() => editCart(item.amount + 1)}>+</button>
             </div>{" "}
           </div>
           <button className="delete">DELETE</button>
