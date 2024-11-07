@@ -5,9 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 const CartItem = ({ item, productId, onUpdateAmount }) => {
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const { changeCartCount } = useOutletContext();
-  // const [amount, setAmount] = useLocalStorageState("amount", {
-  //   defaultValue: item.amount,
-  // });
+
 
   async function editCart(newAmount) {
     let accessToken = "";
