@@ -1,18 +1,38 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const LoginButton = () => {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
   const { pathname } = useLocation();
+
+  console.log({ pathname });
 
   if (isAuthenticated) {
     return null;
   }
 
   return (
-    <Link to="/login" state={{ returnTo: pathname }}>
-      Log In {pathname}
-    </Link>
+    <>
+      <button
+        onClick={() => {
+          const searchParams = new URLSearchParams();
+          searchParams.append("redirect", pathname);
+          console.log(searchParams.toString());
+          loginWithRedirect({
+            authorizationParams: {
+              redirect_uri:
+                window.location.origin + "/login?" + searchParams.toString(),
+            },
+          });
+        }}
+      >
+        Login
+      </button>
+    </>
+
+    // <Link to="/login" state={{ returnTo: pathname }}>
+    //   Log In {pathname}
+    // </Link>
   );
 };
 
