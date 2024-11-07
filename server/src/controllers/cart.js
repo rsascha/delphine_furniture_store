@@ -28,6 +28,7 @@ export const getCart = async (req, res) => {
     res.send("Internal server error");
   }
 };
+
 export const addToCart = async (req, res) => {
   try {
     const userId = req.userId;
@@ -42,6 +43,8 @@ export const addToCart = async (req, res) => {
       return res.json({ message: "Product not found" });
     }
     if (product.available < amount) {
+      console.log(product.available, amount);
+
       return res.json({ message: "Not enough product available" });
     }
     product.available -= amount;
@@ -79,6 +82,55 @@ export const addToCart = async (req, res) => {
       return acc + cur.amount;
     }, 0);
 
+    res.json({ cartCount });
+  } catch (error) {
+    console.log(error);
+    res.json({ message: "Internal server error" });
+  }
+};
+
+export const editCart = async (req, res) => {
+  try {
+    const userId = req.userId;
+    console.log(userId);
+    await db.connect();
+    const { _id, amount } = req.body;
+
+    if (!_id || !amount) {
+      return res.json({ message: "Missing required fields" });
+    }
+    const product = await Product.findById(_id);
+    console.log(product);
+
+    if (product.available < amount) {
+      return res.json({ message: "Not enough product available" });
+    }
+    // product.available -= amount;
+
+    let cart = await Cart.findOne({ userId: userId });
+
+    console.log(cart);
+    const existingProductIndex = cart.products.findIndex(
+      (product) => product.productId.toString() === _id
+    );
+
+    console.log(
+      product.available,
+      amount,
+      cart.products[existingProductIndex].amount
+    );
+    product.available -= amount - cart.products[existingProductIndex].amount;
+    if (existingProductIndex > -1) {
+      cart.products[existingProductIndex].amount = amount;
+    }
+
+    await product.save();
+    await cart.save();
+
+    const cartCount = cart.products.reduce((acc, cur) => {
+      return acc + cur.amount;
+    }, 0);
+    console.log({ cartCount });
     res.json({ cartCount });
   } catch (error) {
     console.log(error);
