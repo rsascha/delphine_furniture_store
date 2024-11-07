@@ -36,6 +36,23 @@ const Cart = () => {
     fetchCartItems();
   }, [isAuthenticated, getAccessTokenSilently, navigate]);
 
+  function handleUpdateAmount(productId, amount) {
+    console.log("handleUpdateAmount", productId, amount);
+
+    setCartItems(
+      cartItems.map((item) => {
+        if (item.productId._id === productId) {
+          return {
+            ...item,
+            amount,
+          };
+        } else {
+          return item;
+        }
+      })
+    );
+  }
+
   const totalPrice = cartItems.reduce(
     (acc, cur) => acc + cur.amount * cur.productId.price,
     0
@@ -51,6 +68,7 @@ const Cart = () => {
                 key={item.productId._id}
                 item={item}
                 productId={item.productId._id}
+                onUpdateAmount={handleUpdateAmount}
               />
             ))
           ) : (

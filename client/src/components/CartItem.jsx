@@ -1,54 +1,44 @@
 import "./CartItem.css";
 import { useOutletContext } from "react-router-dom";
-import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import useLocalStorageState from "use-local-storage-state";
 
-const CartItem = ({ item, productId }) => {
+const CartItem = ({ item, productId, onUpdateAmount }) => {
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const { changeCartCount } = useOutletContext();
-  const [amount, setAmount] = useLocalStorageState("amount", {
-    defaultValue: item.amount,
-  });
+  // const [amount, setAmount] = useLocalStorageState("amount", {
+  //   defaultValue: item.amount,
+  // });
 
-  useEffect(() => {
-    async function editCart() {
-      let accessToken = "";
-      if (isAuthenticated) {
-        accessToken = await getAccessTokenSilently();
-      }
-      try {
-        const response = await fetch("http://localhost:3000/cart/edit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
-          },
-          body: JSON.stringify({
-            _id: productId,
-            amount,
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error("Data fetching error");
-        }
-
-        const data = await response.json();
-        changeCartCount(data.cartCount);
-        console.log(data);
-      } catch (error) {
-        console.error("Error adding product to cart:", error);
-      }
+  async function editCart(newAmount) {
+    let accessToken = "";
+    if (isAuthenticated) {
+      accessToken = await getAccessTokenSilently();
     }
-    editCart();
-  }, [
-    isAuthenticated,
-    getAccessTokenSilently,
-    amount,
-    productId,
-    changeCartCount,
-  ]);
+    try {
+      const response = await fetch("http://localhost:3000/cart/edit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
+        },
+        body: JSON.stringify({
+          _id: productId,
+          amount: newAmount,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Data fetching error");
+      }
+
+      const data = await response.json();
+      changeCartCount(data.cartCount);
+      onUpdateAmount(productId, newAmount);
+      console.log(data);
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+    }
+  }
 
   return (
     <div className="cart-item">
@@ -64,9 +54,9 @@ const CartItem = ({ item, productId }) => {
               <p>Total: ${item.amount * item.productId.price.toFixed(2)}</p>
             </div>{" "}
             <div className="quantity">
-              <button onClick={() => setAmount(amount - 1)}>-</button>
-              <span>{amount}</span>
-              <button onClick={() => setAmount(amount + 1)}>+</button>
+              <button onClick={() => editCart(item.amount - 1)}>-</button>
+              <span>{item.amount}</span>
+              <button onClick={() => editCart(item.amount + 1)}>+</button>
             </div>{" "}
           </div>
           <button className="delete">DELETE</button>
