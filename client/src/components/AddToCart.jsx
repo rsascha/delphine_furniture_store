@@ -37,7 +37,6 @@ function AddToCartButton({ productId, amount = 1, buttonText = "+" }) {
   return (
     <>
       <button onClick={handleAddToCart}>{buttonText}</button>
-      <Link to="/">Test</Link>
     </>
   );
 }
