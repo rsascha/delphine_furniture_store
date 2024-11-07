@@ -23,7 +23,7 @@ const Cart = () => {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        
+
         if (!response.ok) throw new Error("Failed to fetch cart items");
 
         const data = await response.json();
@@ -40,7 +40,7 @@ const Cart = () => {
     <div className="cart">
       <h1>Your Cart</h1>
       {cartItems.length ? (
-        cartItems.map(item => (
+        cartItems.map((item) => (
           <CartItem key={item.productId._id} item={item} />
         ))
       ) : (

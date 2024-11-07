@@ -75,7 +75,11 @@ export const addToCart = async (req, res) => {
     }
     await cart.save();
 
-    res.json({ message: "Product added to cart" });
+    const cartCount = cart.products.reduce((acc, cur) => {
+      return acc + cur.amount;
+    }, 0);
+
+    res.json({ cartCount });
   } catch (error) {
     console.log(error);
     res.json({ message: "Internal server error" });

@@ -1,5 +1,5 @@
 import "./Home.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import ProductCard from "../components/ProductCard.jsx";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -8,7 +8,6 @@ import AddToCartButton from "../components/AddToCart.jsx";
 function Home() {
   const [products, setProducts] = useState([]);
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchBestSelling() {

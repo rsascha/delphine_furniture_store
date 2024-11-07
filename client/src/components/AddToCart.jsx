@@ -1,49 +1,31 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
+import { addToCart } from "../util/addToCart.js";
 
 function AddToCartButton({ productId, amount = 1, buttonText = "+" }) {
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const navigate = useNavigate();
+  const { changeCartCount } = useOutletContext();
 
-  async function addToCart() {
-    try {
-      // const amount = 1;
-      let accessToken = "";
-      if (isAuthenticated) {
-        accessToken = await getAccessTokenSilently();
-      } else {
-        alert(
-          "Bitte loggen Sie sich ein, um Produkte in den Warenkorb zu legen."
-        );
-        navigate("/login", { state: { returnTo: "/products" } });
-        return;
-      }
-
-      const response = await fetch("http://localhost:3000/cart/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
-        },
-        body: JSON.stringify({
-          _id: productId,
-          amount,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Data fetching error");
-      }
-
-      const data = await response.json();
-      console.log(data);
-      alert("Product added to cart");
-    } catch (error) {
-      console.error("Error adding product to cart:", error);
+  const handleAddToCart = async () => {
+    let accessToken = "";
+    if (isAuthenticated) {
+      accessToken = await getAccessTokenSilently();
+    } else {
+      alert(
+        "Bitte loggen Sie sich ein, um Produkte in den Warenkorb zu legen."
+      );
+      navigate("/login", { state: { returnTo: "/products" } });
+      return;
     }
-  }
-
-  return <button onClick={addToCart}>{buttonText}</button>;
+    const cartCount = await addToCart({
+      productId,
+      amount,
+      accessToken,
+    });
+    changeCartCount(cartCount);
+  };
+  return <button onClick={handleAddToCart}>{buttonText}</button>;
 }
 
 export default AddToCartButton;
