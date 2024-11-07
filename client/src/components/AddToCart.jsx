@@ -7,7 +7,6 @@ function AddToCartButton({ productId, amount = 1, buttonText = "+" }) {
 
   async function addToCart() {
     try {
-      // const amount = 1;
       let accessToken = "";
       if (isAuthenticated) {
         accessToken = await getAccessTokenSilently();

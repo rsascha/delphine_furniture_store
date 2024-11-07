@@ -42,6 +42,8 @@ export const addToCart = async (req, res) => {
       return res.json({ message: "Product not found" });
     }
     if (product.available < amount) {
+      console.log(product.available, amount);
+
       return res.json({ message: "Not enough product available" });
     }
     product.available -= amount;

@@ -3,9 +3,9 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(179, 179, 179, 0.87);
-  background-color: #242424;
+  /* color-scheme: light dark; */
+  /* color: rgba(179, 179, 179, 0.87);
+  background-color: #242424; */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -51,10 +51,10 @@ button:focus-visible {
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
+  /* :root {
     color: #213547;
     background-color: #ffffff;
-  }
+  } */
   /* a:hover {
     color: #747bff;
   } */
