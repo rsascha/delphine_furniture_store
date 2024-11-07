@@ -36,17 +36,31 @@ const Cart = () => {
     fetchCartItems();
   }, [isAuthenticated, getAccessTokenSilently, navigate]);
 
+  const totalPrice = cartItems.reduce(
+    (acc, cur) => acc + cur.amount * cur.productId.price,
+    0
+  );
   return (
-    <div className="cart">
-      <h1>Your Cart</h1>
-      {cartItems.length ? (
-        cartItems.map((item) => (
-          <CartItem key={item.productId._id} item={item} />
-        ))
-      ) : (
-        <p>Your cart is empty.</p>
-      )}
-    </div>
+    <>
+      <div className="cart">
+        <h2>Your Cart</h2>
+        <div className="cart-item-container">
+          {cartItems.length ? (
+            cartItems.map((item) => (
+              <CartItem key={item.productId._id} item={item} />
+            ))
+          ) : (
+            <p>Your cart is empty.</p>
+          )}
+        </div>
+        <div className="price-total">
+          <h3>Total Price: ${totalPrice.toFixed(2)}</h3>
+        </div>
+        <div className="cart-total">
+          <button>PROCEED TO CHECKOUT</button>
+        </div>
+      </div>
+    </>
   );
 };
 
