@@ -4,7 +4,7 @@ import Discount from "../models/Discount.js";
 import Cart from "../models/Cart.js";
 import { products } from "../data/products.js";
 import { categories } from "../data/categories.js";
-import { cart } from "../data/carts.js";
+// import { cart } from "../data/carts.js";
 
 import db from "./db-connect.js";
 
@@ -16,7 +16,7 @@ export async function initDb() {
   await Category.insertMany(categories);
 
   await Cart.deleteMany({});
-  await Cart.insertMany(cart);
+  // await Cart.insertMany(cart);
 
   // ------Product-----------------------
   await Product.deleteMany({});

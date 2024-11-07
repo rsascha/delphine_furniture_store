@@ -2,4 +2,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 3rem;
+  background-color: rgb(234, 234, 234);
+}
+
+.dynamic-h1-filter {
+  margin-left: 1rem;
+  font-size: 2rem;
+  white-space: normal;
+  line-height: 1.5;
 }
