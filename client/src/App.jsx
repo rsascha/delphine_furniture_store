@@ -5,16 +5,32 @@ import { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      setCartCount(0);
+    const fetchCartCount = async () => {
+      try {
+        const token = await getAccessTokenSilently();
+        const response = await fetch("http://localhost:3000/cart/count", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+        setCartCount(data.cartCount);
+      } catch (error) {
+        console.error("Error fetching cart count:", error);
+        setCartCount(0);
+      }
+    };
+
+    if (isAuthenticated) {
+      fetchCartCount();
     } else {
-      // TODO: get cartCount for logged in user from server
+      setCartCount(0);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, getAccessTokenSilently]);
 
   function changeCartCount(newCartCount) {
     setCartCount(newCartCount);
