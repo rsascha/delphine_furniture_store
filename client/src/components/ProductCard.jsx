@@ -2,7 +2,7 @@ import "./ProductCard.css";
 import { Link } from "react-router-dom";
 import AddToCartButton from "./AddToCart.jsx";
 
-const ProductCard = ({ product, addToCart }) => {
+const ProductCard = ({ product }) => {
   return (
     <div className="product-card">
       <img src={`${product.image}`} alt={product.image}></img>
