@@ -1,11 +1,9 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 const LoginButton = () => {
   const { isAuthenticated, loginWithRedirect } = useAuth0();
   const { pathname } = useLocation();
-
-  console.log({ pathname });
 
   if (isAuthenticated) {
     return null;
@@ -13,8 +11,9 @@ const LoginButton = () => {
 
   return (
     <>
-      <button
-        onClick={() => {
+      <a
+        onClick={(e) => {
+          e.preventDefault();
           const searchParams = new URLSearchParams();
           searchParams.append("redirect", pathname);
           console.log(searchParams.toString());
@@ -27,12 +26,8 @@ const LoginButton = () => {
         }}
       >
         Login
-      </button>
+      </a>
     </>
-
-    // <Link to="/login" state={{ returnTo: pathname }}>
-    //   Log In {pathname}
-    // </Link>
   );
 };
 

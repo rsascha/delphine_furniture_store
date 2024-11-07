@@ -9,8 +9,9 @@ const LogoutButton = () => {
   }
 
   return (
-    <button
-      onClick={() => {
+    <a
+      onClick={(e) => {
+        e.preventDefault();
         const searchParams = new URLSearchParams();
         searchParams.append("redirect", "/");
         logout({
@@ -22,7 +23,7 @@ const LogoutButton = () => {
       }}
     >
       Logout
-    </button>
+    </a>
   );
 };
 
