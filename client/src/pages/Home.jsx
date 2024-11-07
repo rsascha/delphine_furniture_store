@@ -78,9 +78,9 @@ function Home() {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore.
           </p>
-          <div className="qr-code">
+          {/* <div className="qr-code">
             <img src="../../public/qr-code.png" alt="QR Code" />
-          </div>
+          </div> */}
         </section>
       </div>
     </>
