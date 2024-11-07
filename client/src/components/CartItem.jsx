@@ -8,7 +8,7 @@ const CartItem = ({ item }) => {
         <h2>{item.productId.name}</h2>
         <p>Quantity: {item.amount}</p>
         <p>Price: ${item.productId.price}</p>
-        <p>Total: ${item.amount * item.productId.price}</p>
+        <p>Total: ${(item.amount * item.productId.price).toFixed(2)}</p>
       </div>
     </div>
   );

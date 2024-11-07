@@ -1,22 +1,23 @@
 export async function addToCart({
   productId,
   amount = 1,
-  isAuthenticated,
-  getAccessTokenSilently,
-  navigate,
-  setCartCount,
+  accessToken,
+  // isAuthenticated,
+  // getAccessTokenSilently,
+  // navigate,
+  // setCartCount,
 }) {
   try {
-    let accessToken = "";
-    if (isAuthenticated) {
-      accessToken = await getAccessTokenSilently();
-    } else {
-      alert(
-        "Bitte loggen Sie sich ein, um Produkte in den Warenkorb zu legen."
-      );
-      navigate("/login", { state: { returnTo: "/products" } });
-      return;
-    }
+    // let accessToken = "";
+    // if (isAuthenticated) {
+    //   accessToken = await getAccessTokenSilently();
+    // } else {
+    //   alert(
+    //     "Bitte loggen Sie sich ein, um Produkte in den Warenkorb zu legen."
+    //   );
+    //   navigate("/login", { state: { returnTo: "/products" } });
+    //   return;
+    // }
 
     const response = await fetch("http://localhost:3000/cart/add", {
       method: "POST",
@@ -34,8 +35,9 @@ export async function addToCart({
       throw new Error("Data fetching error");
     }
 
-    // const data = await response.json();
-    setCartCount((prevCount) => prevCount + amount);
+    const { cartCount } = await response.json();
+    return cartCount;
+    // TODO: return cart or cart count
   } catch (error) {
     console.error("Error adding product to cart:", error);
   }

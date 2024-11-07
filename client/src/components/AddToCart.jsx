@@ -5,17 +5,25 @@ import { addToCart } from "../util/addToCart.js";
 function AddToCartButton({ productId, amount = 1, buttonText = "+" }) {
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const navigate = useNavigate();
-  const { setCartCount } = useOutletContext();
+  const { changeCartCount } = useOutletContext();
 
-  const handleAddToCart = () => {
-    addToCart({
+  const handleAddToCart = async () => {
+    let accessToken = "";
+    if (isAuthenticated) {
+      accessToken = await getAccessTokenSilently();
+    } else {
+      alert(
+        "Bitte loggen Sie sich ein, um Produkte in den Warenkorb zu legen."
+      );
+      navigate("/login", { state: { returnTo: "/products" } });
+      return;
+    }
+    const cartCount = await addToCart({
       productId,
       amount,
-      isAuthenticated,
-      getAccessTokenSilently,
-      navigate,
-      setCartCount,
+      accessToken,
     });
+    changeCartCount(cartCount);
   };
   return <button onClick={handleAddToCart}>{buttonText}</button>;
 }

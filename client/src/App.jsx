@@ -6,10 +6,14 @@ import { useState } from "react";
 function App() {
   const [cartCount, setCartCount] = useState(0);
 
+  function changeCartCount(newCartCount) {
+    setCartCount(newCartCount);
+  }
+
   return (
     <>
       <Navbar cartCount={cartCount} />
-      <Outlet context={{ setCartCount }} />
+      <Outlet context={{ changeCartCount }} />
     </>
   );
 }
