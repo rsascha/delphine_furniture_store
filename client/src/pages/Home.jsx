@@ -1,5 +1,5 @@
 import "./Home.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import ProductCard from "../components/ProductCard.jsx";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -8,7 +8,6 @@ import AddToCartButton from "../components/AddToCart.jsx";
 function Home() {
   const [products, setProducts] = useState([]);
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchBestSelling() {
@@ -79,9 +78,9 @@ function Home() {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore.
           </p>
-          <div className="qr-code">
+          {/* <div className="qr-code">
             <img src="../../public/qr-code.png" alt="QR Code" />
-          </div>
+          </div> */}
         </section>
       </div>
     </>

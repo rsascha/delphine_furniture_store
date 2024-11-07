@@ -13,7 +13,7 @@ const CartItem = ({ item }) => {
             <span className="quantity-section">Quantity: {item.amount}</span>
             {/* <p className="price-section">Price: ${item.productId.price}</p> */}
             <div className="total">
-              <p>Total: ${item.amount * item.productId.price}</p>
+              <p>Total: ${item.amount * item.productId.price.toFixed(2)}</p>
             </div>{" "}
             <div className="quantity">
               <button>-</button>
