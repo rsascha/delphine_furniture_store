@@ -2,15 +2,6 @@ import Cart from "../models/Cart.js";
 import { db } from "../util/db-connect.js";
 import Product from "../models/Product.js";
 
-// /**
-//  * @api POST /cart/add
-//  *{
-//  *    "_id": 67289d112377a1ab51abcd40,
-//  *    "sessionId":"123"
-//  *    "amount":2
-//  * }
-//  */
-
 export const getCart = async (req, res) => {
   try {
     const userId = req.userId;
@@ -29,6 +20,34 @@ export const getCart = async (req, res) => {
   }
 };
 
+export const cartCount = async (req, res) => {
+  try {
+    const userId = req.userId;
+    await db.connect();
+
+    const cart = await Cart.findOne({ userId });
+    if (!cart) {
+      return res.json({ cartCount: 0 });
+    }
+
+    const cartCount = cart.products.reduce((acc, cur) => {
+      return acc + cur.amount;
+    }, 0);
+
+    res.json({ cartCount });
+  } catch (error) {
+    console.log(error);
+    res.send("Internal server error");
+  }
+};
+// /**
+//  * @api POST /cart/add
+//  *{
+//  *    "_id": 67289d112377a1ab51abcd40,
+//  *    "sessionId":"123"
+//  *    "amount":2
+//  * }
+//  */
 export const addToCart = async (req, res) => {
   try {
     const userId = req.userId;
