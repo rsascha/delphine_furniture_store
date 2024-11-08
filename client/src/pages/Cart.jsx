@@ -3,6 +3,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import CartItem from "../components/CartItem.jsx";
 import "./Cart.css";
+import { config } from "../config";
+
+const { API_URL } = config;
 
 const Cart = () => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -18,7 +21,7 @@ const Cart = () => {
     const fetchCartItems = async () => {
       try {
         const accessToken = await getAccessTokenSilently();
-        const response = await fetch("http://localhost:3000/cart", {
+        const response = await fetch(API_URL + "/cart", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },

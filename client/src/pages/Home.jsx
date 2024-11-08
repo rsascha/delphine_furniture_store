@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import AddToCartButton from "../components/AddToCart.jsx";
+import { config } from "../config";
+
+const { API_URL } = config;
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -16,14 +19,11 @@ function Home() {
         if (isAuthenticated) {
           accessToken = await getAccessTokenSilently();
         }
-        const response = await fetch(
-          "http://localhost:3000/products/bestSelling",
-          {
-            headers: {
-              Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
-            },
-          }
-        );
+        const response = await fetch(API_URL + "/products/bestSelling", {
+          headers: {
+            Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
+          },
+        });
 
         const data = await response.json();
         setProducts(data);

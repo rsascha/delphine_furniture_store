@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./ProductDetails.css";
 import AddToCartButton from "../components/AddToCart.jsx";
+import { config } from "../config";
+
+const { API_URL } = config;
 
 function ProductDetails() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [count, setCount] = useState(1);
   useEffect(() => {
-    fetch(`http://localhost:3000/products/${productId}`)
+    fetch(API_URL + `/products/${productId}`)
       .then((res) => res.json())
       .then((data) => setProduct(data))
       .catch(console.error);

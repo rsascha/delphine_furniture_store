@@ -12,7 +12,6 @@ import { db } from "./util/db-connect.js";
 const PORT = process.env.PORT || 3000;
 const app = express();
 const authConfig = { ...config.authOptions, authRequired: false };
-console.debug("authConfig", authConfig);
 const jwtCheck = auth(authConfig);
 
 app.use(cors());
@@ -28,6 +27,8 @@ app.use("/products", productRoute);
 app.use("/", categoryRoutes);
 app.use("/cart", cartRoutes);
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log("api running on port " + PORT);
+  await db.connect();
+  console.log("connected to db");
 });

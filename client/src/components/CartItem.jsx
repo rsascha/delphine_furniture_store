@@ -1,11 +1,13 @@
 import "./CartItem.css";
 import { useOutletContext } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { config } from "../config";
+
+const { API_URL } = config;
 
 const CartItem = ({ item, productId, onUpdateAmount }) => {
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const { changeCartCount } = useOutletContext();
-
 
   async function editCart(newAmount) {
     let accessToken = "";
@@ -13,7 +15,7 @@ const CartItem = ({ item, productId, onUpdateAmount }) => {
       accessToken = await getAccessTokenSilently();
     }
     try {
-      const response = await fetch("http://localhost:3000/cart/edit", {
+      const response = await fetch(API_URL + "/cart/edit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
