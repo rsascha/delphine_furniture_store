@@ -3,6 +3,9 @@ import "./App.css";
 import Navbar from "./components/Navbar.jsx";
 import { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { config } from "./config";
+
+const { API_URL } = config;
 
 function App() {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -12,7 +15,7 @@ function App() {
     const fetchCartCount = async () => {
       try {
         const token = await getAccessTokenSilently();
-        const response = await fetch("http://localhost:3000/cart/count", {
+        const response = await fetch(API_URL + "/cart/count", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

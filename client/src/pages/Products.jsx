@@ -6,6 +6,9 @@ import "./Products.css";
 import { useNavigate } from "react-router-dom";
 
 import FilterBar from "../components/Filterbar.jsx";
+import { config } from "../config";
+
+const { API_URL } = config;
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -33,8 +36,8 @@ function Products() {
         // Filter-Parameter in der URL erzeugen
         const query = new URLSearchParams(filters).toString(); // Dies erstellt die Filter-Query
         const url = query
-          ? `http://localhost:3000/products?${query}`
-          : `http://localhost:3000/products`; // Wenn keine Filter vorhanden, nur /products
+          ? API_URL + `/products?${query}`
+          : API_URL + `/products`; // Wenn keine Filter vorhanden, nur /products
 
         const response = await fetch(url, {
           headers: {
@@ -63,7 +66,7 @@ function Products() {
 
     async function fetchColors() {
       try {
-        const response = await fetch("http://localhost:3000/products/colors");
+        const response = await fetch(API_URL + "/products/colors");
         const colors = await response.json();
         setAvailableColors(colors);
       } catch (error) {
@@ -73,9 +76,7 @@ function Products() {
 
     async function fetchMaterials() {
       try {
-        const response = await fetch(
-          "http://localhost:3000/products/materials"
-        ); // API für Materialien
+        const response = await fetch(API_URL + "/products/materials"); // API für Materialien
         const materials = await response.json();
         setAvailableMaterials(materials); // Setze die verfügbaren Materialien
       } catch (error) {
